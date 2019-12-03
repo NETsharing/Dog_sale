@@ -15,12 +15,13 @@ class Post (models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_post')
     body = models.TextField(null=True, verbose_name='Текст объявления', blank=True, editable=True)
     publish = models.DateTimeField(default=timezone.now, verbose_name='дата публикации')
+    tags = TaggableManager()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICE, default='draft')
     object = models.Manager
     published = PublishedManager()
-    tags = TaggableManager()
+
     class Meta:
         ordering = ('-publish',)
 
